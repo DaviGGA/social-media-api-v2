@@ -3,6 +3,7 @@ import cors from "cors";
 import { errorHandler } from "./middlewares/error-handler";
 import 'express-async-errors';
 import userRouter from "./user/router";
+import profileRouter from "./profile/router";
 
 const PORT = 3002;
 
@@ -11,6 +12,7 @@ app.use(cors())
 app.use(express.json());
 
 app.use('/user', userRouter);
+app.use('/profile', profileRouter);
 
 app.use(errorHandler);
 

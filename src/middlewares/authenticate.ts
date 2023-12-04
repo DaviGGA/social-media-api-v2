@@ -31,5 +31,6 @@ async function authenticate(req: Request, res: Response, next: NextFunction) {
     req.user = loggedUser;
 
     next();
-
 }
+
+export default authenticate;
