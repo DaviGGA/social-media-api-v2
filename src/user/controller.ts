@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import type { User } from '@prisma/client'
 import * as service from './service'
 import {compare, hash} from 'bcrypt';
+import 'dotenv/config'
 import jwt from "jsonwebtoken";
 import { BadRequestError, NotFoundError } from "../errors/api-error";
 
