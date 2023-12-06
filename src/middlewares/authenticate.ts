@@ -14,11 +14,17 @@ type JWTPayload = {
 async function authenticate(req: Request, res: Response, next: NextFunction) {
     const { authorization } = req.headers;
 
+
     if (!authorization) {
         throw new UnauthorizedError("Token não existe")
     }
 
     const token = authorization.split(' ')[1];
+
+    if (token == "null") {
+        throw new UnauthorizedError("Token não existe")
+    }
+
     const { id } = jwt.verify(token, process.env.JWT_SECRET_KEY ?? '') as JWTPayload;
     
     const user: User | null = await userService.findUserById(id);

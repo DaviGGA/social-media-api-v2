@@ -48,7 +48,6 @@ export async function login(req: Request, res: Response): Promise<void> {
     const { username, password } = req.body;
 
     const user: UserProfile | null = await service.findUserByUsername(username);
-    console.log(user);
 
     if (!user) {
         throw new NotFoundError("Usuário ou senha inválido.")
@@ -75,6 +74,11 @@ export async function login(req: Request, res: Response): Promise<void> {
         token: token
     })
 
+}
+
+export async function getAuthenticatedUser(req: Request, res: Response): Promise<void> {
+    let user = req.user;
+    res.status(200).send(user);
 }
 
 
