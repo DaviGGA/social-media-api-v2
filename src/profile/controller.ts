@@ -8,9 +8,12 @@ export async function createProfile(req: Request, res: Response): Promise<void> 
         surname,   
     } = req.body;
 
+    let profilePicture = req.file;
+    let picture = profilePicture?.filename
+
     let userId = req.user?.id as number;
     
-    const profile = await service.createProfile({name, surname, userId} as Profile);
+    const profile = await service.createProfile({name, surname, picture, userId} as Profile);
 
     res.status(201).send(profile);
 }

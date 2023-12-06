@@ -12,7 +12,10 @@ export async function createUser({username, password}: User): Promise<User> {
 
 export async function findUserByUsername(username: string): Promise<User | null> {
     let user = prisma.user.findUnique({
-        where: {username}
+        where: {username},
+        include: {
+            profile: true
+        }
     })
 
     return user;
@@ -20,7 +23,10 @@ export async function findUserByUsername(username: string): Promise<User | null>
 
 export async function findUserById(id: number): Promise<User | null> {
     let user = prisma.user.findUnique({
-        where: {id}
+        where: {id},
+        include: {
+            profile: true
+        }
     })
 
     return user;

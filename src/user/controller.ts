@@ -1,10 +1,17 @@
 import { Request, Response, NextFunction } from "express";
-import type { User } from '@prisma/client'
+import type { Profile, User } from '@prisma/client'
 import * as service from './service'
 import {compare, hash} from 'bcrypt';
 import 'dotenv/config'
 import jwt from "jsonwebtoken";
 import { BadRequestError, NotFoundError } from "../errors/api-error";
+
+type UserProfile = {
+    id: number,
+    username: string,
+    password: string,
+    profile?: Profile
+}
 
 
 export async function createUser(req: Request, res: Response): Promise<void> {
@@ -40,7 +47,8 @@ export async function createUser(req: Request, res: Response): Promise<void> {
 export async function login(req: Request, res: Response): Promise<void> {
     const { username, password } = req.body;
 
-    const user: User | null = await service.findUserByUsername(username);
+    const user: UserProfile | null = await service.findUserByUsername(username);
+    console.log(user);
 
     if (!user) {
         throw new NotFoundError("Usuário ou senha inválido.")
@@ -54,7 +62,7 @@ export async function login(req: Request, res: Response): Promise<void> {
     const token = jwt.sign(
         {
             id: user.id, 
-            username: user.username
+            username: user.username,
         }, 
         process.env.JWT_SECRET_KEY ?? '',
         {expiresIn: '1d'}
@@ -68,6 +76,7 @@ export async function login(req: Request, res: Response): Promise<void> {
     })
 
 }
+
 
 
 
