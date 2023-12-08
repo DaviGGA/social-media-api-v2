@@ -6,6 +6,7 @@ import authenticate from "./middlewares/authenticate";
 import userRouter from "./user/router";
 import profileRouter from "./profile/router";
 import postRouter from "./post/router";
+import likeRouter from "./like/router";
 
 const PORT = 3002;
 
@@ -19,6 +20,7 @@ app.use('/post-image', express.static('post-images'));
 app.use('/user', userRouter);
 app.use('/profile', profileRouter);
 app.use('/post', postRouter);
+app.use('/like', likeRouter);
 
 app.use(errorHandler);
 
