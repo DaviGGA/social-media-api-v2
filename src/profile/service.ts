@@ -8,3 +8,4 @@ export async function createProfile({name, surname, picture ,userId}: Profile): 
 
     return profile;
 }
+

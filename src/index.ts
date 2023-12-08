@@ -5,6 +5,7 @@ import 'express-async-errors';
 import authenticate from "./middlewares/authenticate";
 import userRouter from "./user/router";
 import profileRouter from "./profile/router";
+import postRouter from "./post/router";
 
 const PORT = 3002;
 
@@ -13,9 +14,11 @@ const app: express.Application = express();
 app.use(cors())
 app.use(express.json());
 app.use('/profile-picture', express.static('profile-pictures'));
+app.use('/post-image', express.static('post-images'));
 
 app.use('/user', userRouter);
 app.use('/profile', profileRouter);
+app.use('/post', postRouter);
 
 app.use(errorHandler);
 
