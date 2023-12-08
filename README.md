@@ -22,7 +22,7 @@ npm install
 
 <br />
 
-- At ./prisma/schema.prisma you can find the database models and datasource
+- At ./prisma/schema.prisma you can find the database models and datasource, change it or create a database called socialmedia with user as "postgres" and password as "postgres" at localhost
 ```
 // This is the PostgreSQL template for DB URL
 postgresql://USER:PASSWORD@HOST:PORT/DATABASE
