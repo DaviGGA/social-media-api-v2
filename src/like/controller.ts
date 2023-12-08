@@ -8,7 +8,7 @@ export async function likePost(req: Request, res: Response) {
     
     let userId = req.user?.id as number;
 
-    const like: Like | null = await service.findLikeByUserId(userId);
+    const like: Like | null = await service.findLikeByUserPostId({userId, postId} as Like);
 
     if (like) {
         await service.deleteLike(like.id);
