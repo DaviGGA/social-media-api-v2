@@ -9,3 +9,10 @@ export async function createProfile({name, surname, picture ,userId}: Profile): 
     return profile;
 }
 
+export async function getProfileById(profileId: number) {
+    const profile = prisma.profile.findUnique({
+        where: {id: profileId},
+    })
+
+    return profile;
+}

@@ -18,4 +18,12 @@ export async function createProfile(req: Request, res: Response): Promise<void> 
     res.status(201).send(profile);
 }
 
+export async function getProfileById(req: Request, res: Response): Promise<void>{
+    let {profileId} = req.body;
+
+    const profile = await service.getProfileById(profileId);
+
+    res.status(200).send(profile);
+}
+
 

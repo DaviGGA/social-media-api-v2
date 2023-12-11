@@ -9,6 +9,14 @@ export async function createPost({description, image, userId}: Post) {
     return post;
 }
 
+// export async function getPostsByUserId(userId: number) {
+//     const posts = prisma.post.findMany({
+//         where: {userId}
+//     })
+
+//     return posts;
+// }
+
 export async function getPostsFeed() {
     const posts = prisma.post.findMany({
        select: {
