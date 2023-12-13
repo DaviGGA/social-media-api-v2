@@ -19,10 +19,10 @@ export async function createProfile(req: Request, res: Response): Promise<void> 
 }
 
 export async function getProfileById(req: Request, res: Response): Promise<void>{
-    let {profileId} = req.body;
+    let id = parseInt(req.params.id);
 
-    const profile = await service.getProfileById(profileId);
-
+    const profile = await service.getProfileById(id);
+    
     res.status(200).send(profile);
 }
 

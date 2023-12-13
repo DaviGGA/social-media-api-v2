@@ -17,13 +17,13 @@ export async function createPost(req: Request, res: Response) {
     res.status(201).send(post);
 }
 
-// export async function getPostsByUserId(req: Request, res: Response) {
-//     let userId = parseInt(req.params.userId);
+export async function getPostsByUserId(req: Request, res: Response) {
+    let userId = parseInt(req.params.userId);
     
-//     const posts: Post[] = await service.getPostsByUserId(userId);
+    const posts: Post[] = await service.getPostsByUserId(userId);
     
-//     return posts;
-// }
+    res.status(200).send(posts);
+}
 
 export async function userFeed(req: Request, res: Response) {
     let userId = req.user?.id as number;
