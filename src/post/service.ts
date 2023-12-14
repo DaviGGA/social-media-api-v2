@@ -11,10 +11,18 @@ export async function createPost({description, image, userId}: Post) {
 
 export async function getPostsByUserId(userId: number) {
     const posts = prisma.post.findMany({
-        where: {userId}
+        where: {userId},
     })
 
     return posts;
+}
+
+export async function getPostById(id: number) {
+    const post = prisma.post.findUnique({
+        where: {id:id}
+    })
+
+    return post
 }
 
 export async function getPostsFeed() {

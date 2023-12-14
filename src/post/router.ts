@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post('/', upload.single('postImage'), authenticate, controller.createPost);
 router.get('/feed', authenticate , controller.userFeed);
-router.get('/:userId', authenticate, controller.getPostsByUserId);
+router.get('/:id', authenticate, controller.getPostById)
+router.get('/user/:userId', authenticate, controller.getPostsByUserId);
 
 export default router;

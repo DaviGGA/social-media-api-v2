@@ -52,3 +52,11 @@ export async function userFeed(req: Request, res: Response) {
 
     res.status(200).send(posts);
 }
+
+export async function getPostById(req: Request, res: Response): Promise<void> {
+    let id = parseInt(req.params.id);
+
+    const post = await service.getPostById(id);
+
+    res.status(200).send(post);
+}
