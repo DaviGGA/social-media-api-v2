@@ -4,7 +4,6 @@ import { Like } from "@prisma/client";
 import * as service from './service';
 import * as likeService from '../like/service';
 
-
 export async function createPost(req: Request, res: Response) {
     let {description} = req.body;
 
@@ -55,8 +54,14 @@ export async function userFeed(req: Request, res: Response) {
 
 export async function getPostById(req: Request, res: Response): Promise<void> {
     let id = parseInt(req.params.id);
+    let userId = req.user?.id as number;
 
-    const post = await service.getPostById(id);
+    const post: any = await service.getPostById(id);
+
+    if (post) {
+        const like: Like | null = await likeService.findLikeByUserPostId({userId, postId: post.id} as Like)
+        post.userLiked = like ? true : false;
+    }
 
     res.status(200).send(post);
 }

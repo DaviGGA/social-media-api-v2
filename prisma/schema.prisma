@@ -19,6 +19,7 @@ model User {
   profile Profile?
   posts Post[]
   likes Like[]
+  comments Comment[]
 }
 
 model Profile {
@@ -37,6 +38,16 @@ model Post {
   user User @relation(fields: [userId], references: [id])
   userId Int 
   likes Like[]
+  comments Comment[]
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  text String
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int
 }
 
 model Like {
