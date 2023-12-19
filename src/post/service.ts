@@ -12,6 +12,9 @@ export async function createPost({description, image, userId}: Post) {
 export async function getPostsByUserId(userId: number) {
     const posts = prisma.post.findMany({
         where: {userId},
+        orderBy: {
+            createdAt: 'desc'
+           }
     })
 
     return posts;
@@ -57,6 +60,9 @@ export async function getPostsFeed() {
                 profile: true,
             }
         }
+       },
+       orderBy: {
+        createdAt: 'desc'
        }
 
     })

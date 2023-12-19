@@ -39,6 +39,7 @@ model Post {
   userId Int 
   likes Like[]
   comments Comment[]
+  createdAt  DateTime   @default(now())
 }
 
 model Comment {
@@ -48,6 +49,7 @@ model Comment {
   postId Int
   user User @relation(fields: [userId], references: [id])
   userId Int
+  createdAt  DateTime   @default(now())
 }
 
 model Like {
