@@ -20,6 +20,8 @@ model User {
   posts Post[]
   likes Like[]
   comments Comment[]
+  follows Follow[] @relation(name: "follows")
+  following Follow[] @relation(name: "following")
 }
 
 model Profile {
@@ -58,4 +60,12 @@ model Like {
     userId Int 
     post  Post @relation(fields: [postId], references: [id], onDelete: Cascade)
     postId Int 
+}
+
+model Follow {
+    id Int @id @default(autoincrement())
+    userFollowed User @relation(fields: [followedId], references: [id], name: "follows")
+    followedId Int
+    userFollowing User @relation(fields: [followingId], references: [id], name: "following")
+    followingId Int
 }

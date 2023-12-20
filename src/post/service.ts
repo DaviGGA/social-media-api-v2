@@ -46,7 +46,7 @@ export async function getPostById(id: number) {
     return post
 }
 
-export async function getPostsFeed() {
+export async function getPostsFeed(userId: number) {
     const posts = prisma.post.findMany({
        select: {
         id: true,
@@ -55,16 +55,23 @@ export async function getPostsFeed() {
         likes: true,
         user: {         
             select: {
-                password: false,
-                username: false,
+                id: true,
                 profile: true,
+            }
+        },
+       },
+       where: {
+        user: {
+            follows: {
+                some: {
+                    followingId: userId
+                }
             }
         }
        },
        orderBy: {
         createdAt: 'desc'
        }
-
     })
 
     return posts;

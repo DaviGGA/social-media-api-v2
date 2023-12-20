@@ -27,7 +27,7 @@ export async function getPostsByUserId(req: Request, res: Response) {
 export async function userFeed(req: Request, res: Response) {
     let userId = req.user?.id as number;
 
-    const result = await service.getPostsFeed();
+    const result = await service.getPostsFeed(userId);
 
     const posts = result.map((post) => {
         let profile = post.user.profile;
@@ -47,6 +47,8 @@ export async function userFeed(req: Request, res: Response) {
         const like: Like | null = await likeService.findLikeByUserPostId({userId, postId: post.id} as Like)
         post.userLiked = like ? true : false
     }
+
+    
 
 
     res.status(200).send(posts);

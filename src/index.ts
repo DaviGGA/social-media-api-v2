@@ -8,6 +8,7 @@ import profileRouter from "./profile/router";
 import postRouter from "./post/router";
 import likeRouter from "./like/router";
 import commentRouter from "./comment/router";
+import followRouter from "./follow/router";
 
 const PORT = 3002;
 
@@ -23,6 +24,7 @@ app.use('/profile', profileRouter);
 app.use('/post', postRouter);
 app.use('/like', likeRouter);
 app.use('/comment', commentRouter);
+app.use('/follow', followRouter);
 
 app.use(errorHandler);
 

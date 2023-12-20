@@ -8,6 +8,6 @@ const upload = multer({dest:'profile-pictures/'})
 const router = express.Router();
 
 router.post('/', upload.single('profilePicture'), authenticate, controller.createProfile);
-router.get('/:id', controller.getProfileById);
+router.get('/:id', authenticate , controller.getProfileById);
 
 export default router;

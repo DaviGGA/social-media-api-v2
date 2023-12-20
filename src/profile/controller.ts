@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { Profile } from "@prisma/client";
+import { Follow, Profile } from "@prisma/client";
 import * as service from './service';
+import * as followService from '../follow/service';
 
 export async function createProfile(req: Request, res: Response): Promise<void> {
     let {
@@ -19,9 +20,10 @@ export async function createProfile(req: Request, res: Response): Promise<void> 
 }
 
 export async function getProfileById(req: Request, res: Response): Promise<void>{
-    let id = parseInt(req.params.id);
-
-    const profile = await service.getProfileById(id);
+    let userId = req.user?.id as number;
+    let id: number = parseInt(req.params.id);
+    
+    const profile: Profile | null = await service.getProfileById(id);
     
     res.status(200).send(profile);
 }

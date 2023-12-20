@@ -21,3 +21,4 @@ export async function likePost(req: Request, res: Response) {
     res.status(201).send({newLike, liked: true});
 
 }
+
