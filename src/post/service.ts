@@ -61,13 +61,23 @@ export async function getPostsFeed(userId: number) {
         },
        },
        where: {
-        user: {
-            follows: {
-                some: {
-                    followingId: userId
+        OR: [
+            {
+                user: {
+                    follows: {
+                        some: {
+                            followingId: userId
+                        }
+                    }
+                },
+            },
+            {
+                user: {
+                    id: userId
                 }
             }
-        }
+        ]
+
        },
        orderBy: {
         createdAt: 'desc'

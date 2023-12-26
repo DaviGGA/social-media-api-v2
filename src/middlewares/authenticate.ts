@@ -25,7 +25,25 @@ async function authenticate(req: Request, res: Response, next: NextFunction) {
         throw new UnauthorizedError("Token não existe")
     }
 
-    const { id } = jwt.verify(token, process.env.JWT_SECRET_KEY ?? '') as JWTPayload;
+
+    let id: number;
+
+    try {
+        const result = jwt.verify(token, process.env.JWT_SECRET_KEY ?? '') as JWTPayload;
+        id = result.id
+    } catch (error) {
+        const errorString: string = String(error);
+        const errorName: string =  errorString.split(':')[0]
+        
+        switch (errorName) {
+            case "TokenExpiredError":
+                throw new UnauthorizedError("Token expirou")
+            default:
+                throw new Error()    
+        }
+    
+    }
+
     
     const user: User | null = await userService.findUserById(id);
 

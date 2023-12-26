@@ -28,6 +28,14 @@ export async function getProfileById(req: Request, res: Response): Promise<void>
     res.status(200).send(profile);
 }
 
+export async function searchProfile(req: Request, res: Response): Promise<void> {
+    let { searchParam } = req.params;
+
+    const profiles: Profile[] | null = await service.searchProfile(searchParam);
+
+    res.status(200).send(profiles)
+}
+
 
 
 

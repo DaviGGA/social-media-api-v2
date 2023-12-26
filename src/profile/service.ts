@@ -16,3 +16,22 @@ export async function getProfileById(profileId: number) {
 
     return profile;
 }
+
+export async function searchProfile(searchParam: string) {
+    const paramsSplitted = searchParam.split(' ');
+
+    const condition: any[] = [] 
+    
+    paramsSplitted.forEach(p => {
+        condition.push({name: {contains: p}})
+        condition.push({surname: {contains: p}})
+    })
+
+    const profiles = prisma.profile.findMany({
+        where: {
+            OR: condition
+        }
+    })
+
+    return profiles
+}
