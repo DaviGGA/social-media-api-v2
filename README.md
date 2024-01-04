@@ -1,6 +1,9 @@
 # Instagram Clone API
 Node: v18.16.0
 
+## Video demonstration
+https://www.youtube.com/watch?v=JHXKjRc8upQ
+
 <br />
 <br />
 
@@ -41,4 +44,7 @@ npx prisma migrate dev
 ```
 npm run dev
 ```
+
+You can test it out only using Postman, Insonmia, etc. but i also made a simple Front-End, here is the repo:
+https://github.com/DaviGGA/social-media
 
