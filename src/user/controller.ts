@@ -21,6 +21,11 @@ export async function createUser(req: Request, res: Response): Promise<void> {
         confirmPassword
     } = req.body;
 
+    let hasBlankFields = !username || !password || !confirmPassword
+    if (hasBlankFields){
+        throw new BadRequestError("Há campos vazios.")
+    }
+
     if (password != confirmPassword) {
         throw new BadRequestError("As senhas não coincidem!");
     }

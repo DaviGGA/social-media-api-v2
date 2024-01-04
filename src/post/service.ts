@@ -29,17 +29,6 @@ export async function getPostById(id: number) {
                     profile: true,
                 }
             },
-            comments: {
-                select: {
-                    id: true,
-                    text: true,
-                    user: {
-                        select: {
-                            profile: true
-                        }
-                    }
-                }
-            }
         }
     })
 

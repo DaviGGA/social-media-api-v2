@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Comment } from "@prisma/client";
 import * as service from './service';
+import { BadRequestError } from "../errors/api-error";
 
 export async function createComment(req: Request, res: Response) {
     let { text, postId } = req.body;
@@ -11,9 +12,15 @@ export async function createComment(req: Request, res: Response) {
 }
 
 export async function getPostComments(req: Request, res: Response) {
-    let {postId} = req.body;
+    let {postId} = req.params;
 
-    const comments = await service.getCommentsByPostId(postId);
+    if (!postId) {
+        throw new BadRequestError("ID do post não foi providenciado.")
+    }
+
+
+    const id: number = parseInt(postId)
+    const comments = await service.getCommentsByPostId(id);
 
     res.status(200).send(comments);
 }

@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { Post } from "@prisma/client";
-import { Like } from "@prisma/client";
+import { Post, Like } from "@prisma/client";
+
 import * as service from './service';
+import * as commentService from '../comment/service'
 import * as likeService from '../like/service';
 
 export async function createPost(req: Request, res: Response) {
@@ -58,12 +59,19 @@ export async function getPostById(req: Request, res: Response): Promise<void> {
     let id = parseInt(req.params.id);
     let userId = req.user?.id as number;
 
-    const post: any = await service.getPostById(id);
+    const post: Post | null = await service.getPostById(id);
 
-    if (post) {
-        const like: Like | null = await likeService.findLikeByUserPostId({userId, postId: post.id} as Like)
-        post.userLiked = like ? true : false;
+    if (!post) {
+        res.status(200).send({});
+        return
     }
 
-    res.status(200).send(post);
+    const comments = await commentService.getCommentsByPostId(id) 
+
+    
+    const like: Like | null = await likeService.findLikeByUserPostId({userId, postId: post.id} as Like)
+    const userLiked: boolean = like ? true : false;
+    
+
+    res.status(200).send({...post,comments,userLiked});
 }
